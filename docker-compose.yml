@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  simulator:
+    build: 
+      context: ./simulator
+    volumes:
+      - ./data:/app/data
+    command: python generate_telemetry.py --stream
+
+  ingestion:
+    build:
+      context: ./ingestion
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+    volumes:
+      - ./data:/app/data
+    command: python upload_to_s3.py --watch
+    depends_on:
+      - simulator
