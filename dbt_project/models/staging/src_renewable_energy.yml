@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: "{{ env_var('SNOWFLAKE_DATABASE', 'RENEWABLE_ENERGY') }}"
+    schema: "{{ env_var('SNOWFLAKE_SCHEMA', 'RAW') }}"
+    tables:
+      - name: raw_wind_telemetry
+      - name: raw_solar_telemetry
+      - name: raw_battery_telemetry

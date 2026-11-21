@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: fct_grid_performance_hourly
+    description: "Hourly aggregation of power output across the grid."
+    columns:
+      - name: telemetry_hour
+        description: "The hour of telemetry data."
+        tests:
+          - unique
+          - not_null
+      - name: avg_total_power_kw
+        description: "Total power generated/consumed in KW for this hour."
